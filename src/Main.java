@@ -1,4 +1,6 @@
 import java.util.Random;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 public class Main extends Thread{
     static  int[] array = new int[10_000_000];
@@ -12,6 +14,7 @@ public class Main extends Thread{
         ArrayAverage ArAverage2 = new ArrayAverage(2_500_000, 5_000_000, array);
         ArrayAverage ArAverage3 = new ArrayAverage(5_000_000, 7_500_000, array);
         ArrayAverage ArAverage4 = new ArrayAverage(7_500_000, 10_000_000, array);
+        Logger logger = Logger.getLogger(Main.class.getName());
 
         Thread t1 = new Thread(ArAverage1);
         t1.start();
@@ -31,17 +34,18 @@ public class Main extends Thread{
 
         try {
             t1.join();
-            System.out.println("Среднее арифметическое 1й части: " + ArAverage1.getAverage());
+            logger.log(Level.INFO, "Среднее арифметическое 1й части: " + ArAverage1.getAverage());
             t2.join();
-            System.out.println("Среднее арифметическое 2й части: " + ArAverage2.getAverage());
+            logger.log(Level.INFO, "Среднее арифметическое 2й части: " + ArAverage2.getAverage());
             t3.join();
-            System.out.println("Среднее арифметическое 3й части: " + ArAverage3.getAverage());
+            logger.log(Level.INFO, "Среднее арифметическое 3й части: " + ArAverage3.getAverage());
             t4.join();
-            System.out.println("Среднее арифметическое 4й части: " + ArAverage4.getAverage());
+            logger.log(Level.INFO, "Среднее арифметическое 4й части: " + ArAverage4.getAverage());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Среднее арифметическое всех частей массива: "
+
+        logger.log(Level.INFO, "Среднее арифметическое всех частей массива: "
                 + (ArAverage1.getAverage() + ArAverage2.getAverage() + ArAverage3.getAverage() +
                 ArAverage4.getAverage())/4);
     }
